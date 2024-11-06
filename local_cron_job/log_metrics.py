@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/bin/python3
 import json
 
 import psutil
@@ -7,7 +7,8 @@ import requests
 from pathlib import Path
 from datetime import date, datetime
 
-logs_dir = Path('./logs')
+
+logs_dir = Path(__file__).parent.resolve() / 'logs'
 today = str(date.today())
 
 logs_dir.mkdir(exist_ok=True, parents=True)
