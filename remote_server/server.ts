@@ -22,7 +22,7 @@ app.post("/log-entry", async (req, res) => {
   if (!fileExists) {
     await fs.appendFile(file, 'Timestamp,Cpu usage,Mem usage,Disk usage\n', { encoding: 'utf-8' })
   }
-  await fs.appendFile(file, `${entry}\n`, { encoding: 'utf-8' })
+  await fs.appendFile(file, `${entry}`, { encoding: 'utf-8' })
 
   res.send("Done");
 });
