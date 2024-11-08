@@ -1,5 +1,6 @@
-#!/bin/python3
+#!/usr/bin/python3
 import json
+from zoneinfo import ZoneInfo
 
 import psutil
 import os
@@ -19,7 +20,10 @@ if not file_path.exists():
     file_path.write_text('Timestamp,Cpu usage,Mem usage,Disk usage\n')
 
 with file_path.open('a') as f:
-    timestamp = str(datetime.now().strftime('%d-%m-%Y %H:%M:%S'))
+    naive_datetime = datetime.now()
+    server_datetime = naive_datetime.astimezone()
+
+    timestamp = str(server_datetime.isoformat())
     mem_percent = psutil.virtual_memory().percent
     cpu_percent = psutil.cpu_percent(interval=5)
     disk_usage = psutil.disk_usage(os.sep).percent
