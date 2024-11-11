@@ -17,12 +17,16 @@ app.post("/log-entry", async (req, res) => {
   assert.ok(entry)
 
   await fs.mkdir(logsDir, { recursive: true })
-  const file = path.join(logsDir, fileName)
-  const fileExists = await fs.exists(file)
+  const filePath = path.join(logsDir, fileName)
+  const fileExists = await fs.exists(filePath)
   if (!fileExists) {
-    await fs.appendFile(file, 'Timestamp,Cpu usage,Mem usage,Disk usage\n', { encoding: 'utf-8' })
+    await fs.writeFile(filePath, '[]', { encoding: 'utf-8' })
   }
-  await fs.appendFile(file, `${entry}`, { encoding: 'utf-8' })
+
+  const jsonFile = JSON.parse(await fs.readFile(filePath, { encoding: 'utf-8' })) as any[]
+  jsonFile.push(entry)
+
+  await fs.writeFile(filePath, JSON.stringify(jsonFile, null, 4), { encoding: 'utf-8' })
 
   res.send("Done");
 });

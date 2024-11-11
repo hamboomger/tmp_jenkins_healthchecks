@@ -38,8 +38,8 @@ json_contents.append(json_record)
 with file_path.open('w') as f:
     json.dump(json_contents, f, indent=4)
 
-# res = requests.post('https://tmp-jenkins-healthchecks.onrender.com/log-entry',
-#               json={ 'fileName': logs_file, 'entry': json_record })
-# res.raise_for_status()
+res = requests.post('https://tmp-jenkins-healthchecks.onrender.com/log-entry',
+              json={ 'fileName': logs_file, 'entry': json_record })
+res.raise_for_status()
 
 print(f'Added telemetry data for {json_record["timestamp"]}')
