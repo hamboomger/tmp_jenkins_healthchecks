@@ -7,8 +7,6 @@ from pathlib import Path
 file_name = '2024-11-11-custom.json'
 
 local_jenkins_logs = Path('./jenkins_local_logs') / 'logs'
-remote_server_logs = Path('./remote_logs') / 'logs'
-
 
 # Local logs
 df1 = pd.read_json(local_jenkins_logs / file_name)
